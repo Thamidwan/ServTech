@@ -48,28 +48,33 @@
     }
 
     /* ── Header with Image Logo Placeholder ── */
-    header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      animation: fadeUp 0.8s ease both;
-    }
-    
-    /* Logo Image Container - Ready for your upload */
-    .logo-image {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1.5px solid rgba(109,184,232,0.5);
-      background: var(--navy-light);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .logo-image:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 12px rgba(109,184,232,0.2);
-    }
+   header {
+  display: flex;
+  justify-content: center; /* CENTER horizontally */
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* Logo container */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive logo */
+.logo-image {
+  width: clamp(80px, 12vw, 140px); /* responsive size */
+  height: auto; /* keep aspect ratio */
+  object-fit: contain;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.logo-image:hover {
+  transform: scale(1.05);
+}
     
     /* Placeholder styling while no image is uploaded */
     .logo-placeholder {
@@ -430,20 +435,11 @@
 
   <div class="page">
 
-    <header>
-      <!-- Logo with Image Placeholder - Replace 'logo-image.png' with your actual image file -->
-      <div class="logo-container">
-        <!-- IMAGE LOGO: Change 'logo.png' to your actual image filename -->
-      
-        <!-- Placeholder (shown until image loads or if image missing) -->
-         
-        <div class="image-upload-hint"> 
-           <img id="siteLogo" src="logo.png" alt="ServTech IT Solutions Logo" onerror="handleLogoError()">
-        </div>
-      </div>
-      
-    
-    </header>
+ <header>
+  <div class="logo-container">
+    <img id="siteLogo" src="logo.png" alt="ServTech IT Solutions Logo" class="logo-image">
+  </div>
+</header>
 
     <main>
       <div class="label-pill">
