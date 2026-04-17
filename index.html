@@ -25,14 +25,43 @@
 
     html, body {
       height: 100%;
-     
+      background: var(--navy);
       color: var(--text-primary);
       font-family: 'DM Sans', sans-serif;
       overflow-x: hidden;
     }
 
     /* ── Background ── */
-    
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .bg::before {
+      content: '';
+      position: absolute;
+      width: 900px; height: 900px;
+      top: -300px; right: -300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(109,184,232,0.07) 0%, transparent 70%);
+    }
+    .bg::after {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      bottom: -200px; left: -200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(109,184,232,0.05) 0%, transparent 70%);
+    }
+    .grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(109,184,232,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(109,184,232,0.08) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
 
     /* ── Layout ── */
     .page {
@@ -47,29 +76,71 @@
       text-align: center;
     }
 
-    /* ── Header ── */
+    /* ── Header with Image Logo Placeholder ── */
     header {
       display: flex;
       align-items: center;
       gap: 1rem;
       animation: fadeUp 0.8s ease both;
     }
-    .logo-circle {
-      width: 56px; height: 56px;
+    
+    /* Logo Image Container - Ready for your upload */
+    .logo-image {
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
-      background: var(--navy-light);
+      object-fit: cover;
       border: 1.5px solid rgba(109,184,232,0.5);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
+      background: var(--navy-light);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .logo-circle span {
+    
+    .logo-image:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(109,184,232,0.2);
+    }
+    
+    /* Placeholder styling while no image is uploaded */
+    .logo-placeholder {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy-light) 0%, var(--blue-dim) 100%);
+      border: 1.5px solid rgba(109,184,232,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .logo-placeholder span {
       font-family: 'Syne', sans-serif;
       font-size: 14px;
       font-weight: 800;
       letter-spacing: 2px;
       color: var(--blue);
     }
-    .logo-wordmark { line-height: 1; }
+    
+    .logo-placeholder:hover {
+      background: linear-gradient(135deg, var(--blue-dim) 0%, var(--navy-light) 100%);
+      transform: scale(1.02);
+    }
+    
+    /* Hide placeholder when image is loaded */
+    .logo-placeholder.hidden {
+      display: none;
+    }
+    
+    .logo-image.hidden {
+      display: none;
+    }
+    
+    .logo-wordmark { 
+      line-height: 1; 
+      text-align: left;
+    }
     .logo-wordmark .serv {
       font-family: 'Syne', sans-serif;
       font-size: 22px;
@@ -152,7 +223,7 @@
       animation: fadeUp 0.8s 0.3s ease both;
     }
 
-    /* ── CONTACT FORM (with PHP/PHPMailer) ── */
+    /* ── CONTACT FORM ── */
     .contact-section {
       width: 100%;
       margin-top: 2.8rem;
@@ -341,6 +412,32 @@
       letter-spacing: -6px;
     }
 
+    /* Image upload helper styling - subtle indicator */
+    .image-upload-hint {
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px;
+      color: var(--text-dim);
+      white-space: nowrap;
+      background: rgba(255,255,255,0.8);
+      padding: 2px 8px;
+      border-radius: 20px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .logo-container {
+      position: relative;
+      display: inline-flex;
+    }
+    
+    .logo-container:hover .image-upload-hint {
+      opacity: 0.7;
+    }
+
     /* ── Animations ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
@@ -369,7 +466,17 @@
   <div class="page">
 
     <header>
-      <div class="logo-circle"><span>SIS</span></div>
+      <!-- Logo with Image Placeholder - Replace 'logo-image.png' with your actual image file -->
+      <div class="logo-container">
+        <!-- IMAGE LOGO: Change 'logo.png' to your actual image filename -->
+        <img id="siteLogo" class="logo-image hidden" src="logo.png" alt="ServTech IT Solutions Logo" onerror="handleLogoError()">
+        <!-- Placeholder (shown until image loads or if image missing) -->
+        <div id="logoPlaceholder" class="logo-placeholder">
+          <span>SIS</span>
+        </div>
+        <div class="image-upload-hint">▼ Upload your logo (logo.png)</div>
+      </div>
+      
       <div class="logo-wordmark">
         <span class="serv">SERV</span><span class="tech">TECH</span>
         <span class="sub">IT Solutions</span>
@@ -398,7 +505,7 @@
           <div class="form-title">Stay in touch</div>
           <div class="form-sub">Leave a message — we’ll reach out.</div>
 
-          <!-- IMPORTANT: Form action points to send_email.php (PHPMailer handler) -->
+          <!-- Form action points to send_email.php (PHPMailer handler) -->
           <form id="contactForm" action="send_email.php" method="POST">
             <div class="input-group">
               <label>Full name</label>
@@ -439,8 +546,46 @@
 
   </div>
 
-  <!-- JavaScript to handle AJAX form submission with PHPMailer backend (optional but seamless) -->
   <script>
+    // Logo image handling - shows placeholder if image not found
+    function handleLogoError() {
+      const logoImg = document.getElementById('siteLogo');
+      const placeholder = document.getElementById('logoPlaceholder');
+      if (logoImg && placeholder) {
+        logoImg.classList.add('hidden');
+        placeholder.classList.remove('hidden');
+      }
+    }
+    
+    // Try to load the logo image when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      const logoImg = document.getElementById('siteLogo');
+      const placeholder = document.getElementById('logoPlaceholder');
+      
+      // Check if the image exists and is loaded
+      if (logoImg.complete) {
+        // Image already loaded (either successfully or error)
+        if (logoImg.naturalWidth === 0 || logoImg.naturalHeight === 0) {
+          // Image failed to load or is invalid
+          handleLogoError();
+        } else {
+          // Image loaded successfully
+          logoImg.classList.remove('hidden');
+          placeholder.classList.add('hidden');
+        }
+      } else {
+        // Image still loading
+        logoImg.onload = function() {
+          logoImg.classList.remove('hidden');
+          placeholder.classList.add('hidden');
+        };
+        logoImg.onerror = function() {
+          handleLogoError();
+        };
+      }
+    });
+    
+    // ========== CONTACT FORM HANDLER ==========
     (function() {
       const form = document.getElementById('contactForm');
       const statusDiv = document.getElementById('formStatus');
@@ -453,7 +598,6 @@
         } else if (type === 'error') {
           statusDiv.classList.add('error');
         }
-        // Auto clear after 6 seconds on success
         if (type === 'success') {
           setTimeout(() => {
             if (statusDiv.textContent === message) {
@@ -464,23 +608,18 @@
         }
       }
 
-      // Client-side validation before sending to PHP
       function isValidEmail(email) {
         const re = /^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/i;
         return re.test(email);
       }
 
-      // Intercept form submission and send via fetch (AJAX) for better UX
-      // This still calls send_email.php but without full page reload.
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Gather fields
         const fullName = document.getElementById('fullName').value.trim();
         const email = document.getElementById('email').value.trim();
         const message = document.getElementById('message').value.trim();
 
-        // Validation
         if (!fullName) {
           showStatus('Please enter your full name.', 'error');
           return;
@@ -502,7 +641,6 @@
           return;
         }
 
-        // Prepare form data for POST request
         const formData = new FormData();
         formData.append('fullName', fullName);
         formData.append('email', email);
@@ -519,7 +657,12 @@
             body: formData
           });
           
-          const result = await response.json();
+          let result;
+          try {
+            result = await response.json();
+          } catch (e) {
+            result = { status: 'error', message: 'Invalid server response.' };
+          }
           
           if (result.status === 'success') {
             showStatus(result.message || 'Thank you! Your message has been sent. We’ll be in touch soon.', 'success');
