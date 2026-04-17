@@ -9,15 +9,18 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --navy: #0d1f2d;
-      --navy-mid: #152a3a;
-      --navy-light: #1e3a50;
+      --navy: #ffffff;
+      --navy-mid: #f5f7fa;
+      --navy-light: #e8f0f7;
       --blue: #6db8e8;
       --blue-light: #9dd0f4;
-      --blue-dim: rgba(109,184,232,0.15);
-      --text-primary: #e8f4ff;
-      --text-muted: #7a9bb5;
-      --text-dim: #4a6a85;
+      --blue-dim: rgba(109,184,232,0.12);
+      --blue-hover: #5ba4d4;
+      --text-primary: #0d1f2d;
+      --text-muted: #4a6a85;
+      --text-dim: #7a9bb5;
+      --shadow-sm: 0 8px 20px rgba(0,0,0,0.02), 0 2px 4px rgba(0,0,0,0.02);
+      --shadow-md: 0 12px 28px rgba(0,0,0,0.03), 0 4px 12px rgba(0,0,0,0.02);
     }
 
     html, body {
@@ -55,8 +58,8 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(109,184,232,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(109,184,232,0.04) 1px, transparent 1px);
+        linear-gradient(rgba(109,184,232,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(109,184,232,0.08) 1px, transparent 1px);
       background-size: 60px 60px;
     }
 
@@ -84,7 +87,7 @@
       width: 56px; height: 56px;
       border-radius: 50%;
       background: var(--navy-light);
-      border: 1.5px solid rgba(109,184,232,0.3);
+      border: 1.5px solid rgba(109,184,232,0.5);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
@@ -123,8 +126,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 4rem 0;
-      max-width: 780px;
+      padding: 3rem 0 2rem;
+      max-width: 860px;
       width: 100%;
     }
 
@@ -167,7 +170,7 @@
     }
 
     .tagline {
-      margin-top: 2rem;
+      margin-top: 1.8rem;
       font-size: clamp(15px, 2vw, 18px);
       color: var(--text-muted);
       line-height: 1.65;
@@ -175,10 +178,141 @@
       font-weight: 300;
       margin-left: auto;
       margin-right: auto;
-      animation: fadeUp 0.8s 0.35s ease both;
+      animation: fadeUp 0.8s 0.3s ease both;
     }
 
+    /* ── CONTACT FORM (with PHP/PHPMailer) ── */
+    .contact-section {
+      width: 100%;
+      margin-top: 2.8rem;
+      animation: fadeUp 0.8s 0.5s ease both;
+    }
 
+    .form-card {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(4px);
+      border-radius: 36px;
+      padding: 2rem 2rem 2.2rem;
+      box-shadow: var(--shadow-md), 0 1px 1px rgba(0,0,0,0.02);
+      border: 1px solid rgba(109,184,232,0.2);
+      max-width: 560px;
+      margin: 0 auto;
+      transition: all 0.25s ease;
+    }
+
+    .form-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+    }
+    .form-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.8rem;
+      border-bottom: 1px dashed rgba(109,184,232,0.3);
+      display: inline-block;
+      padding-bottom: 6px;
+    }
+
+    .input-group {
+      margin-bottom: 1.4rem;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      font-weight: 500;
+      color: var(--text-dim);
+      margin-bottom: 0.5rem;
+    }
+
+    .input-group input,
+    .input-group textarea {
+      width: 100%;
+      background: white;
+      border: 1px solid #e2edf5;
+      border-radius: 28px;
+      padding: 0.85rem 1.3rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+      outline: none;
+      resize: vertical;
+    }
+
+    .input-group input:focus,
+    .input-group textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(109,184,232,0.2);
+    }
+
+    .input-group textarea {
+      border-radius: 28px;
+      min-height: 100px;
+    }
+
+    .btn-submit {
+      background: var(--blue);
+      border: none;
+      border-radius: 40px;
+      padding: 0.85rem 1.8rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 0.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+
+    .btn-submit:hover {
+      background: var(--blue-hover);
+      transform: scale(0.98);
+      box-shadow: 0 4px 12px rgba(109,184,232,0.25);
+    }
+
+    .form-status {
+      margin-top: 1.2rem;
+      font-size: 0.85rem;
+      padding: 0.6rem 0.8rem;
+      border-radius: 50px;
+      background: transparent;
+      transition: all 0.2s;
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .form-status.success {
+      color: #1f8a4c;
+      background: rgba(31,138,76,0.08);
+    }
+
+    .form-status.error {
+      color: #d45a5a;
+      background: rgba(212,90,90,0.06);
+    }
+
+    .contact-note {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      margin-top: 1rem;
+      text-align: center;
+      letter-spacing: 0.2px;
+    }
 
     /* ── Vertical accent line ── */
     .accent-line {
@@ -197,8 +331,10 @@
       flex-wrap: wrap;
       gap: 1rem;
       padding-top: 2rem;
-      border-top: 1px solid rgba(109,184,232,0.08);
-      animation: fadeUp 0.8s 0.65s ease both;
+      margin-top: 1.5rem;
+      border-top: 1px solid rgba(13,31,45,0.1);
+      width: 100%;
+      animation: fadeUp 0.8s 0.7s ease both;
     }
     .footer-left {
       font-size: 13px;
@@ -226,7 +362,7 @@
       font-family: 'Syne', sans-serif;
       font-size: clamp(100px, 18vw, 220px);
       font-weight: 800;
-      color: rgba(109,184,232,0.03);
+      color: rgba(13,31,45,0.04);
       line-height: 1;
       user-select: none;
       pointer-events: none;
@@ -248,6 +384,8 @@
     @media (max-width: 600px) {
       .page { padding: 2rem 1.5rem; }
       h1 { letter-spacing: -1px; }
+      .form-card { padding: 1.5rem; }
+      .btn-submit { padding: 0.75rem 1.4rem; }
     }
   </style>
 </head>
@@ -283,15 +421,150 @@
         Our website is under construction — check back soon for the full launch.
       </p>
 
+      <!-- CONTACT FORM SECTION with PHP/PHPMailer support -->
+      <div class="contact-section">
+        <div class="form-card">
+          <div class="form-title">Stay in touch</div>
+          <div class="form-sub">Leave a message — we’ll reach out.</div>
 
+          <!-- IMPORTANT: Form action points to send_email.php (PHPMailer handler) -->
+          <form id="contactForm" action="send_email.php" method="POST">
+            <div class="input-group">
+              <label>Full name</label>
+              <input type="text" id="fullName" name="fullName" placeholder="Alex Rivera" required>
+            </div>
+
+            <div class="input-group">
+              <label>Email address</label>
+              <input type="email" id="email" name="email" placeholder="hello@example.com" required>
+            </div>
+
+            <div class="input-group">
+              <label>Message / Inquiry</label>
+              <textarea id="message" name="message" placeholder="Tell us about your project or any questions..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">
+              <span>Send message</span>
+              <span style="font-size:1.1rem;">→</span>
+            </button>
+            <div id="formStatus" class="form-status"></div>
+            <div class="contact-note">
+              ✦ We’ll reply within 24 hours ✦
+            </div>
+          </form>
+        </div>
+      </div>
     </main>
 
     <footer>
       <span class="footer-left">© 2026 ServTech IT Solutions. All rights reserved.</span>
-    
+      <div class="social-links">
+        <a href="#">LinkedIn</a>
+        <a href="#">Twitter</a>
+        <a href="#">Contact</a>
+      </div>
     </footer>
 
   </div>
 
+  <!-- JavaScript to handle AJAX form submission with PHPMailer backend (optional but seamless) -->
+  <script>
+    (function() {
+      const form = document.getElementById('contactForm');
+      const statusDiv = document.getElementById('formStatus');
+
+      function showStatus(message, type) {
+        statusDiv.textContent = message;
+        statusDiv.classList.remove('success', 'error');
+        if (type === 'success') {
+          statusDiv.classList.add('success');
+        } else if (type === 'error') {
+          statusDiv.classList.add('error');
+        }
+        // Auto clear after 6 seconds on success
+        if (type === 'success') {
+          setTimeout(() => {
+            if (statusDiv.textContent === message) {
+              statusDiv.textContent = '';
+              statusDiv.classList.remove('success');
+            }
+          }, 6000);
+        }
+      }
+
+      // Client-side validation before sending to PHP
+      function isValidEmail(email) {
+        const re = /^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/i;
+        return re.test(email);
+      }
+
+      // Intercept form submission and send via fetch (AJAX) for better UX
+      // This still calls send_email.php but without full page reload.
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Gather fields
+        const fullName = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+
+        // Validation
+        if (!fullName) {
+          showStatus('Please enter your full name.', 'error');
+          return;
+        }
+        if (!email) {
+          showStatus('Email address is required.', 'error');
+          return;
+        }
+        if (!isValidEmail(email)) {
+          showStatus('Please enter a valid email address (e.g., name@domain.com).', 'error');
+          return;
+        }
+        if (!message) {
+          showStatus('Please write a short message or inquiry.', 'error');
+          return;
+        }
+        if (message.length < 5) {
+          showStatus('Message should be at least 5 characters.', 'error');
+          return;
+        }
+
+        // Prepare form data for POST request
+        const formData = new FormData();
+        formData.append('fullName', fullName);
+        formData.append('email', email);
+        formData.append('message', message);
+
+        const submitBtn = form.querySelector('.btn-submit');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<span>Sending...</span><span style="opacity:0.6;">✉️</span>';
+        submitBtn.disabled = true;
+
+        try {
+          const response = await fetch('send_email.php', {
+            method: 'POST',
+            body: formData
+          });
+          
+          const result = await response.json();
+          
+          if (result.status === 'success') {
+            showStatus(result.message || 'Thank you! Your message has been sent. We’ll be in touch soon.', 'success');
+            form.reset();
+          } else {
+            showStatus(result.message || 'Something went wrong. Please try again later.', 'error');
+          }
+        } catch (err) {
+          console.error('Fetch error:', err);
+          showStatus('Network error. Could not send message. Please try again.', 'error');
+        } finally {
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
