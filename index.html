@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ServTech IT Solutions — Coming Soon</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #0d1f2d;
+      --navy-mid: #152a3a;
+      --navy-light: #1e3a50;
+      --blue: #6db8e8;
+      --blue-light: #9dd0f4;
+      --blue-dim: rgba(109,184,232,0.15);
+      --text-primary: #e8f4ff;
+      --text-muted: #7a9bb5;
+      --text-dim: #4a6a85;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--navy);
+      color: var(--text-primary);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── Background ── */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .bg::before {
+      content: '';
+      position: absolute;
+      width: 900px; height: 900px;
+      top: -300px; right: -300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(109,184,232,0.07) 0%, transparent 70%);
+    }
+    .bg::after {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      bottom: -200px; left: -200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(109,184,232,0.05) 0%, transparent 70%);
+    }
+    .grid-lines {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(109,184,232,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(109,184,232,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* ── Layout ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem clamp(1.5rem, 6vw, 5rem);
+      text-align: center;
+    }
+
+    /* ── Header ── */
+    header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      animation: fadeUp 0.8s ease both;
+    }
+    .logo-circle {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--navy-light);
+      border: 1.5px solid rgba(109,184,232,0.3);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-circle span {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--blue);
+    }
+    .logo-wordmark { line-height: 1; }
+    .logo-wordmark .serv {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--blue);
+    }
+    .logo-wordmark .tech {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .logo-wordmark .sub {
+      display: block;
+      font-size: 9px;
+      letter-spacing: 3.5px;
+      color: var(--text-dim);
+      margin-top: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ── Main hero ── */
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 0;
+      max-width: 780px;
+      width: 100%;
+    }
+
+    .label-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--blue-dim);
+      border: 1px solid rgba(109,184,232,0.25);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: var(--blue);
+      text-transform: uppercase;
+      width: fit-content;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+    .label-pill .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+      animation: blink 1.8s infinite;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -2px;
+      color: var(--text-primary);
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+    h1 em {
+      font-style: normal;
+      color: var(--blue);
+      display: block;
+    }
+
+    .tagline {
+      margin-top: 2rem;
+      font-size: clamp(15px, 2vw, 18px);
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 480px;
+      font-weight: 300;
+      margin-left: auto;
+      margin-right: auto;
+      animation: fadeUp 0.8s 0.35s ease both;
+    }
+
+
+
+    /* ── Vertical accent line ── */
+    .accent-line {
+      position: fixed;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, transparent, var(--blue), transparent);
+      z-index: 2;
+    }
+
+    /* ── Footer ── */
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(109,184,232,0.08);
+      animation: fadeUp 0.8s 0.65s ease both;
+    }
+    .footer-left {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+    .social-links {
+      display: flex;
+      gap: 1.25rem;
+    }
+    .social-links a {
+      font-size: 12px;
+      color: var(--text-dim);
+      text-decoration: none;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .social-links a:hover { color: var(--blue); }
+
+    /* ── Large decorative text ── */
+    .deco-text {
+      position: fixed;
+      bottom: -40px;
+      right: -20px;
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(100px, 18vw, 220px);
+      font-weight: 800;
+      color: rgba(109,184,232,0.03);
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+      z-index: 0;
+      letter-spacing: -6px;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.2; }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .page { padding: 2rem 1.5rem; }
+      h1 { letter-spacing: -1px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg"><div class="grid-lines"></div></div>
+  <div class="accent-line"></div>
+  <div class="deco-text">SOON</div>
+
+  <div class="page">
+
+    <header>
+      <div class="logo-circle"><span>SIS</span></div>
+      <div class="logo-wordmark">
+        <span class="serv">SERV</span><span class="tech">TECH</span>
+        <span class="sub">IT Solutions</span>
+      </div>
+    </header>
+
+    <main>
+      <div class="label-pill">
+        <div class="dot"></div>
+        Coming Soon
+      </div>
+
+      <h1>
+        Big things
+        <em>in the works.</em>
+      </h1>
+
+      <p class="tagline">
+        We're crafting a smarter digital experience for our clients.
+        Our website is under construction — check back soon for the full launch.
+      </p>
+
+
+    </main>
+
+    <footer>
+      <span class="footer-left">© 2026 ServTech IT Solutions. All rights reserved.</span>
+      <div class="social-links">
+        <a href="#">LinkedIn</a>
+        <a href="#">Twitter</a>
+        <a href="#">Contact</a>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>
